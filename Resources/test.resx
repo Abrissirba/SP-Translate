@@ -1,0 +1,9 @@
+<data name="discussionList_Desc">
+    <value>A place to have newsgroup-style discussions.  Discussion boards make it easy to manage discussion threads and can be configured to require approval for all posts.</value>
+  </data>
+  <data name="discussionList_DefaultDesc">
+    <value>Use the Team Discussion list to hold newsgroup-style discussions on topics relevant to your team.</value>
+  </data>
+<data name="Boxed_no_labels">
+    <value>Boxed, no labels</value>
+  </data>
