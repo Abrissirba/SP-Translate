@@ -16,7 +16,8 @@
 
     function getTranslation(locale, cb){
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', chrome.extension.getURL('../sp_locales/' + locale + '.json'), true);
+        //xhr.open('GET', chrome.extension.getURL('../sp_locales/' + locale + '.json'), true);
+        xhr.open('GET', 'https://sptranslate.azurewebsites.net/' + locale + '.json', true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 translations = JSON.parse(xhr.responseText);
@@ -68,11 +69,14 @@
         return langEl ? langEl.lang : null;
     }
 
-    chrome.extension.onMessage.addListener(function(msg) {
-        if(msg.action === 'refresh'){
-            ready(setTranslations, msg.wait);
-        }
-    });
+    if(chrome && chrome.extension) {
+        chrome.extension.onMessage.addListener(function(msg) {
+            if(msg.action === 'refresh'){
+                ready(setTranslations, msg.wait);
+            }
+        });
+    }
+
 
     var lang = getLocale();
     if(isSharePointSite() && lang) {
