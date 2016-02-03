@@ -1,4 +1,4 @@
-(function(){
+(function(global){
     'use strict';
     var translations = {};
     //var init = false;
@@ -14,7 +14,7 @@
         }
     }
 
-    function getTranslation(locale, cb){
+    function getTranslations(locale, cb){
         var xhr = new XMLHttpRequest();
         //xhr.open('GET', chrome.extension.getURL('../sp_locales/' + locale + '.json'), true);
         xhr.open('GET', 'https://sptranslate.azurewebsites.net/' + locale + '.json', true);
@@ -82,7 +82,7 @@
     if(isSharePointSite() && lang) {
         addStyle();
 
-        getTranslation(lang);
+        getTranslations(lang);
 
         // ready(function(){
         //     if(!init){
@@ -91,4 +91,10 @@
         //     }
         // }, 1000);
     }
-})();
+
+    if(global){
+        global.setTranslations = setTranslations;
+        global.getTranslations = getTranslations;
+    }
+
+})(window);

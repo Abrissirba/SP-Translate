@@ -11,6 +11,14 @@ Go in to a SharePoint site and click on the SP Translate icon in the URL field.
 
 Make sure that the extension is available by fist building the project and then [add it to chrome](https://developer.chrome.com/extensions/getstarted#unpacked)
 
+If you don't want to use it as a chrome extension you can run the following in the console.
+
+```
+var script = document.createElement("script"), SPTranslate = {translateOnLoad: true};
+script.src = "https://sptranslate.azurewebsites.net/contentscript.js";
+document.body.appendChild(script);
+```
+
 ## Building
 
 In order to build this project you need node and gulp installed.
