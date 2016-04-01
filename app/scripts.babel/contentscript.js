@@ -1,7 +1,7 @@
-(function(global){
+(function(window){
     'use strict';
     var translations = {};
-    //var init = false;
+    var init = false;
 
     function setTranslations(){
         var elements = document.getElementsByTagName('*');
@@ -30,7 +30,7 @@
     }
 
     function addStyle(){
-        var css = 'span.sp-translation { color: rgba(255, 0, 0, 0.75); }',
+        var css = 'span.sp-translation { color: rgba(6, 77, 0, 0.77); }',
         head = document.head || document.getElementsByTagName('head')[0],
         style = document.createElement('style');
 
@@ -69,8 +69,8 @@
         return langEl ? langEl.lang : null;
     }
 
-    if(chrome && chrome.extension) {
-        chrome.extension.onMessage.addListener(function(msg) {
+    if(window.chrome && window.chrome.extension) {
+        window.chrome.extension.onMessage.addListener(function(msg) {
             if(msg.action === 'refresh'){
                 ready(setTranslations, msg.wait);
             }
@@ -82,19 +82,23 @@
     if(isSharePointSite() && lang) {
         addStyle();
 
-        getTranslations(lang);
-
-        // ready(function(){
-        //     if(!init){
-        //         init = true;
-        //         getTranslation(lang, setTranslations);
-        //     }
-        // }, 1000);
+        if (SPTranslate && SPTranslate.translateOnLoad) {
+            ready(function(){
+                if(!init){
+                    init = true;
+                    getTranslations(lang, setTranslations);
+                }
+            }, 1000);
+        }
+        else {
+            getTranslations(lang);
+        }
+        
     }
 
-    if(global){
-        global.setTranslations = setTranslations;
-        global.getTranslations = getTranslations;
+    if(window){
+        window.setTranslations = setTranslations;
+        window.getTranslations = getTranslations;
     }
 
 })(window);
